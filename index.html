@@ -837,6 +837,113 @@ ul { list-style: none; }
   box-shadow: 0 0 8px var(--green-primary);
 }
 
+/* ============================================================
+   SECTION PARCOURS — Nouveau design bio
+============================================================ */
+.parcours-bio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.bio-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition), box-shadow var(--transition), transform 0.4s cubic-bezier(0.23,1,0.32,1);
+  will-change: transform;
+}
+.bio-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--green-primary);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.bio-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-glow);
+}
+.bio-card:hover::before { opacity: 1; }
+
+/* Carte accent (perspectives) */
+.bio-card-accent {
+  border-color: rgba(0,255,136,0.2);
+  background: linear-gradient(135deg, var(--bg-card) 70%, rgba(0,255,136,0.04) 100%);
+}
+.bio-card-accent::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--green-primary), var(--green-dim), transparent);
+}
+
+.bio-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.bio-icon { font-size: 1.8rem; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+
+.bio-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--green-primary);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+.bio-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.bio-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+.bio-text strong { color: var(--text-primary); }
+
+/* Timeline formation dans la carte */
+.bio-timeline { display: flex; flex-direction: column; gap: 0.9rem; }
+.bio-timeline-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--border);
+}
+.bio-timeline-item:last-child { border-bottom: none; padding-bottom: 0; }
+.bio-year {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--green-primary);
+  white-space: nowrap;
+  min-width: 76px;
+  margin-top: 3px;
+}
+.bio-timeline-item strong { font-size: 0.88rem; color: var(--text-primary); display: block; }
+.bio-timeline-item p { font-size: 0.78rem; color: var(--text-secondary); margin-top: 2px; }
+
+@media (max-width: 768px) {
+  .parcours-bio-grid { grid-template-columns: 1fr; }
+}
+
 .entreprise-stack { display: flex; flex-wrap: wrap; gap: 6px; }
 
   </style>
@@ -905,122 +1012,113 @@ ul { list-style: none; }
     <div class="container">
       <div class="section-header">
         <span class="section-tag">// 01</span>
-        <h2 class="section-title">Parcours &amp; Compétences</h2>
-        <p class="section-subtitle">Formation technique orientée infrastructure réseau et systèmes</p>
+        <h2 class="section-title">Mon Parcours</h2>
+        <p class="section-subtitle">Formation, motivations et perspectives</p>
       </div>
-      <div class="parcours-grid">
 
-        <div class="parcours-card card-formation">
-          <div class="card-icon">🎓</div>
-          <h3>Formation</h3>
-          <ul class="formation-list">
-            <li>
-              <span class="formation-year">2025 – 2027</span>
+      <div class="parcours-bio-grid">
+
+        <!-- Carte 1 : Ma formation -->
+        <div class="bio-card">
+          <div class="bio-card-header">
+            <span class="bio-icon">🎓</span>
+            <div>
+              <span class="bio-tag">Formation</span>
+              <h3 class="bio-title">Nexa Digital School · Lyon</h3>
+            </div>
+          </div>
+          <div class="bio-timeline">
+            <div class="bio-timeline-item">
+              <span class="bio-year">2025 – 2027</span>
               <div>
                 <strong>BTS SIO — option SISR</strong>
                 <p>Solutions d'Infrastructure, Systèmes et Réseaux</p>
               </div>
-            </li>
-            <li>
-              <span class="formation-year">2023</span>
+            </div>
+            <div class="bio-timeline-item">
+              <span class="bio-year">2025</span>
               <div>
                 <strong>Baccalauréat Général</strong>
                 <p>Spécialités Mathématiques &amp; Physique-Chimie</p>
               </div>
-            </li>
-          </ul>
-        </div>
-
-        <div class="parcours-card card-skills">
-          <div class="card-icon">⚙️</div>
-          <h3>Compétences Techniques</h3>
-          <div class="skills-grid">
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name">Administration Linux</span>
-                <span class="skill-level">85%</span>
-              </div>
-              <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
-              <span class="skill-detail">Debian, Ubuntu Server, scripts Bash, gestion des services systemd</span>
-            </div>
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name">Windows Server</span>
-                <span class="skill-level">80%</span>
-              </div>
-              <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
-              <span class="skill-detail">Active Directory, GPO, DNS/DHCP, IIS, PowerShell</span>
-            </div>
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name">Cisco IOS</span>
-                <span class="skill-level">75%</span>
-              </div>
-              <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
-              <span class="skill-detail">Configuration switches/routeurs, VLANs, OSPF, ACLs, NAT</span>
-            </div>
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name">Maquettage Packet Tracer</span>
-                <span class="skill-level">90%</span>
-              </div>
-              <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
-              <span class="skill-detail">Simulation d'architectures réseau complexes, tests de connectivité</span>
-            </div>
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name">Virtualisation VMware / VirtualBox</span>
-                <span class="skill-level">78%</span>
-              </div>
-              <div class="skill-bar"><div class="skill-fill" data-width="78"></div></div>
-              <span class="skill-detail">Création de VMs, snapshots, réseaux virtuels, vSphere (notions)</span>
-            </div>
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name">Support &amp; Assistance utilisateurs</span>
-                <span class="skill-level">82%</span>
-              </div>
-              <div class="skill-bar"><div class="skill-fill" data-width="82"></div></div>
-              <span class="skill-detail">Ticketing GLPI, diagnostic incidents, assistance niveau 1 &amp; 2</span>
-            </div>
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name">Sécurité des infrastructures</span>
-                <span class="skill-level">72%</span>
-              </div>
-              <div class="skill-bar"><div class="skill-fill" data-width="72"></div></div>
-              <span class="skill-detail">Pare-feu, segmentation réseau, hardening OS, politique de mots de passe</span>
             </div>
           </div>
+          <p class="bio-text">
+            Je prépare mon BTS SIO option SISR à la Nexa Digital School de Lyon. Cette spécialisation
+            me forme à gérer des parcs informatiques, administrer des serveurs, configurer des
+            équipements réseau et assurer la cybersécurité des infrastructures d'entreprise — autant
+            de domaines dans lesquels je me retrouve pleinement.
+          </p>
         </div>
 
-        <div class="parcours-card card-tools">
-          <div class="card-icon">🛠️</div>
-          <h3>Outils &amp; Environnements</h3>
-          <div class="tools-tags">
-            <span class="tag tag-network">Packet Tracer</span>
-            <span class="tag tag-system">Windows 10 / 11</span>
-            <span class="tag tag-system">Windows Server 2019</span>
-            <span class="tag tag-system">Ubuntu Desktop</span>
-            <span class="tag tag-virt">VirtualBox</span>
-            <span class="tag tag-monitor">GLPI</span>
-            <span class="tag tag-sec">Wireshark</span>
-            <span class="tag tag-code">PowerShell</span>
-            <span class="tag tag-code">Bash</span>
-            <span class="tag tag-code">Git</span>
+        <!-- Carte 2 : Pourquoi l'informatique -->
+        <div class="bio-card">
+          <div class="bio-card-header">
+            <span class="bio-icon">💡</span>
+            <div>
+              <span class="bio-tag">Motivation</span>
+              <h3 class="bio-title">Pourquoi l'informatique ?</h3>
+            </div>
           </div>
+          <p class="bio-text">
+            Mon intérêt pour l'informatique est né de façon assez naturelle : j'ai grandi avec les
+            jeux vidéo, et c'est cette passion qui m'a peu à peu poussé à m'interroger sur ce qui se
+            passe vraiment derrière l'écran. J'ai commencé à explorer le sujet par moi-même — réseaux
+            sociaux, forums, vidéos — et j'ai découvert un univers technique qui m'a immédiatement
+            accroché.
+          </p>
+          <p class="bio-text">
+            Sans parcours informatique préalable, j'ai cherché une formation qui me permette d'entrer
+            concrètement dans le domaine. Le BTS SIO SISR s'est imposé comme une évidence : un
+            programme ancré dans la réalité du terrain, avec une vraie dimension professionnelle dès
+            la première année.
+          </p>
         </div>
 
-        <div class="parcours-card card-soft">
-          <div class="card-icon">💡</div>
-          <h3>Savoir-être</h3>
-          <ul class="soft-list">
-            <li><span class="soft-icon">🔍</span> Rigueur dans le diagnostic et la résolution d'incidents</li>
-            <li><span class="soft-icon">📝</span> Rédaction de documentation technique claire</li>
-            <li><span class="soft-icon">🤝</span> Travail en équipe (projets SISR en binôme/trinôme)</li>
-            <li><span class="soft-icon">🔄</span> Capacité d'adaptation aux nouvelles technologies</li>
-            <li><span class="soft-icon">🎯</span> Autonomie et sens des priorités</li>
-          </ul>
+        <!-- Carte 3 : Mon alternance -->
+        <div class="bio-card">
+          <div class="bio-card-header">
+            <span class="bio-icon">🏢</span>
+            <div>
+              <span class="bio-tag">Alternance</span>
+              <h3 class="bio-title">SPIE ICS · EM Lyon</h3>
+            </div>
+          </div>
+          <p class="bio-text">
+            Depuis maintenant un an et demi, je suis en alternance chez SPIE ICS, déployé directement
+            sur le site client de l'EM Lyon. Au quotidien, j'assure le support technique de niveaux 1
+            et 2 : résolution d'incidents utilisateurs, interventions matérielles et logicielles,
+            traitement des demandes via notre outil de ticketing.
+          </p>
+          <p class="bio-text">
+            Au-delà du support, cette expérience m'a permis de monter en compétences sur des sujets
+            plus techniques : administration de tenants <strong>Microsoft 365</strong>, gestion
+            d'environnements <strong>Active Directory</strong> et déploiement de
+            <strong>GPO</strong> (Group Policy Objects). C'est exactement le type de missions qui
+            me donnent envie d'aller plus loin.
+          </p>
+        </div>
+
+        <!-- Carte 4 : Perspectives 2ème année -->
+        <div class="bio-card bio-card-accent">
+          <div class="bio-card-header">
+            <span class="bio-icon">🚀</span>
+            <div>
+              <span class="bio-tag">Perspectives</span>
+              <h3 class="bio-title">Cap sur la 2ème année</h3>
+            </div>
+          </div>
+          <p class="bio-text">
+            Pour cette deuxième année, je continuerai à assurer des missions de support technique —
+            une base solide que je souhaite consolider encore davantage. Mais l'objectif est clair :
+            progressivement basculer vers des missions d'<strong>administrateur systèmes et réseaux</strong>
+            aux côtés de l'équipe IT de l'EM Lyon.
+          </p>
+          <p class="bio-text">
+            C'est la prochaine étape logique de mon évolution, et je l'aborde avec beaucoup
+            d'enthousiasme. Chaque jour sur le terrain me confirme que c'est dans cette direction
+            que je veux construire ma carrière.
+          </p>
         </div>
 
       </div>
