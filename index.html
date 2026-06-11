@@ -1053,7 +1053,7 @@ ul { list-style: none; }
 <body>
 
   <!-- HEADER / HERO -->
-  <header id="hero" class="hero-section">
+  <header id="accueil" class="hero-section">
     <nav class="navbar">
       <div class="nav-logo">
         <span class="logo-bracket">[</span>
@@ -1061,6 +1061,7 @@ ul { list-style: none; }
         <span class="logo-bracket">]</span>
       </div>
       <ul class="nav-links">
+        <li><a href="#accueil">Accueil</a></li>
         <li><a href="#parcours">Parcours</a></li>
         <li><a href="#entreprise">Entreprise</a></li>
         <li><a href="#projets">Projets</a></li>
@@ -1683,16 +1684,19 @@ ul { list-style: none; }
     });
 
     /* ── Active nav ── */
-    const sections = document.querySelectorAll('section[id]');
+    const sections = document.querySelectorAll('section[id], header[id]');
     const navItems = document.querySelectorAll('.nav-links a');
     const highlightNav = () => {
-      let current = '';
-      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.getAttribute('id'); });
+      let current = 'accueil';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 80) current = s.getAttribute('id');
+      });
       navItems.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href') === '#' + current) link.classList.add('active');
       });
     };
+    highlightNav(); // actif dès le chargement
     window.addEventListener('scroll', highlightNav);
 
     /* ── Tilt 3D ── */
