@@ -946,6 +946,178 @@ ul { list-style: none; }
 
 .entreprise-stack { display: flex; flex-wrap: wrap; gap: 6px; }
 
+/* ============================================================
+   SECTION TABLEAU E5
+============================================================ */
+.e5-section { background: var(--bg-base); }
+
+.e5-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.e5-intro {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green-primary);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.e5-preview-wrap {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  position: relative;
+}
+.e5-preview-wrap:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-glow);
+}
+.e5-preview-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--green-primary), var(--green-dim), transparent);
+  z-index: 1;
+}
+
+.e5-preview-inner {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  background: #1a1a1a;
+  overflow: hidden;
+}
+
+.e5-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Fallback si PDF absent */
+.e5-fallback {
+  display: none;
+  position: absolute;
+  inset: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: var(--bg-card);
+  text-align: center;
+  padding: 2rem;
+}
+.e5-fallback.visible { display: flex; }
+.e5-fallback-icon { font-size: 3rem; }
+.e5-fallback p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; }
+.e5-fallback code { font-family: var(--font-mono); color: var(--green-primary); font-size: 0.82rem; }
+
+.e5-expand-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  background: rgba(0,255,136,0.05);
+  border: none;
+  border-top: 1px solid var(--border);
+  color: var(--green-primary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+.e5-expand-btn:hover {
+  background: rgba(0,255,136,0.12);
+  color: #fff;
+}
+.e5-expand-icon { font-size: 1rem; }
+
+/* ── Modale lightbox ── */
+.e5-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+.e5-modal.open { display: flex; }
+
+.e5-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+}
+
+.e5-modal-content {
+  position: relative;
+  z-index: 1;
+  width: 92vw;
+  height: 92vh;
+  background: var(--bg-card);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.8), var(--shadow-glow);
+  animation: modalIn 0.3s cubic-bezier(0.23,1,0.32,1);
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.e5-modal-close {
+  position: absolute;
+  top: 12px; right: 14px;
+  z-index: 2;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), border-color var(--transition);
+}
+.e5-modal-close:hover {
+  background: rgba(255,85,85,0.2);
+  border-color: #ff5555;
+  color: #ff5555;
+}
+
+.e5-modal-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .e5-preview-inner { height: 360px; }
+  .e5-modal-content { width: 98vw; height: 95vh; }
+}
+
   </style>
 </head>
 <body>
@@ -963,6 +1135,7 @@ ul { list-style: none; }
         <li><a href="#entreprise">Entreprise</a></li>
         <li><a href="#projets">Projets</a></li>
         <li><a href="#veille">Veille</a></li>
+        <li><a href="#e5">Tableau E5</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <button class="nav-toggle" aria-label="Menu mobile">
@@ -1433,11 +1606,65 @@ ul { list-style: none; }
     </div>
   </section>
 
+  <!-- SECTION SYNTHÈSE E5 -->
+  <section id="e5" class="section e5-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">// 05</span>
+        <h2 class="section-title">Tableau de synthèse E5</h2>
+        <p class="section-subtitle">Épreuve E5 — Récapitulatif des compétences acquises en BTS SIO</p>
+      </div>
+
+      <div class="e5-wrapper">
+        <p class="e5-intro">
+          Retrouvez ci-dessous le tableau récapitulatif de mes compétences acquises durant ma
+          formation BTS SIO SISR. Ce document synthétise l'ensemble des activités professionnelles
+          réalisées en entreprise et en contexte scolaire, conformément aux exigences de
+          l'épreuve E5.
+        </p>
+
+        <!-- Aperçu cliquable -->
+        <div class="e5-preview-wrap" id="e5PreviewWrap">
+          <div class="e5-preview-inner">
+            <iframe
+              src="tableau-e5.pdf"
+              class="e5-iframe"
+              title="Tableau de synthèse E5"
+              id="e5Iframe"
+            ></iframe>
+            <!-- Fallback si le PDF ne charge pas -->
+            <div class="e5-fallback" id="e5Fallback">
+              <span class="e5-fallback-icon">📄</span>
+              <p>Le document n'est pas encore disponible.<br>Déposez votre fichier <code>tableau-e5.pdf</code> dans le dossier du portfolio.</p>
+            </div>
+          </div>
+          <button class="e5-expand-btn" id="e5ExpandBtn" title="Agrandir le document">
+            <span class="e5-expand-icon">⛶</span>
+            Voir en plein écran
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODALE LIGHTBOX E5 -->
+  <div class="e5-modal" id="e5Modal" role="dialog" aria-modal="true" aria-label="Tableau de synthèse E5">
+    <div class="e5-modal-overlay" id="e5ModalOverlay"></div>
+    <div class="e5-modal-content">
+      <button class="e5-modal-close" id="e5ModalClose" title="Fermer">✕</button>
+      <iframe
+        src="tableau-e5.pdf"
+        class="e5-modal-iframe"
+        title="Tableau de synthèse E5 — plein écran"
+      ></iframe>
+    </div>
+  </div>
+
   <!-- SECTION CONTACT -->
   <section id="contact" class="section contact-section">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">// 05</span>
+        <span class="section-tag">// 06</span>
         <h2 class="section-title">Contact</h2>
         <p class="section-subtitle">Actuellement en alternance — technicien support IT</p>
       </div>
@@ -1564,6 +1791,40 @@ ul { list-style: none; }
         card.style.boxShadow  = '';
       });
     });
+    /* ── Modale Tableau E5 ── */
+    const e5ExpandBtn   = document.getElementById('e5ExpandBtn');
+    const e5Modal       = document.getElementById('e5Modal');
+    const e5ModalClose  = document.getElementById('e5ModalClose');
+    const e5ModalOverlay= document.getElementById('e5ModalOverlay');
+    const e5Iframe      = document.getElementById('e5Iframe');
+    const e5Fallback    = document.getElementById('e5Fallback');
+
+    /* Détecte si le PDF est inaccessible et affiche le fallback */
+    if (e5Iframe) {
+      e5Iframe.addEventListener('error', () => {
+        e5Fallback.classList.add('visible');
+        e5Iframe.style.display = 'none';
+      });
+    }
+
+    const openModal = () => {
+      e5Modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    };
+    const closeModal = () => {
+      e5Modal.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+
+    if (e5ExpandBtn)    e5ExpandBtn.addEventListener('click', openModal);
+    if (e5ModalClose)   e5ModalClose.addEventListener('click', closeModal);
+    if (e5ModalOverlay) e5ModalOverlay.addEventListener('click', closeModal);
+
+    /* Fermeture via Échap */
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
   </script>
 
 </body>
