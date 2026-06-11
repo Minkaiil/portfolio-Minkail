@@ -693,7 +693,7 @@ ul { list-style: none; }
   .parcours-card { padding: 1.5rem; }
 }
 /* ============================================================
-   SECTION ENTREPRISE
+   SECTION ENTREPRISE — Design split modernisé
 ============================================================ */
 .entreprise-section { background: var(--bg-base); }
 
@@ -702,10 +702,10 @@ ul { list-style: none; }
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: border-color var(--transition), box-shadow var(--transition);
-  max-width: 860px;
+  max-width: 1000px;
   margin: 0 auto;
   position: relative;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .entreprise-card::before {
   content: '';
@@ -716,27 +716,44 @@ ul { list-style: none; }
 }
 .entreprise-card:hover {
   border-color: var(--border-hover);
-  box-shadow: var(--shadow-glow);
+  box-shadow: 0 0 32px rgba(0,255,136,0.15), 0 8px 40px rgba(0,0,0,0.4);
 }
 
-.entreprise-header {
+/* ── Layout split : colonne gauche + droite ── */
+.entreprise-split {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+}
+
+/* Colonne gauche */
+.entreprise-aside {
+  padding: 2.5rem 2rem;
+  background: rgba(255,255,255,0.02);
+  border-right: 1px solid var(--border);
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
   gap: 1.5rem;
-  padding: 2rem 2rem 1.5rem;
-  border-bottom: 1px solid var(--border);
-  flex-wrap: wrap;
 }
 
+.entreprise-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 .entreprise-logo {
-  width: 56px; height: 56px;
+  width: 54px; height: 54px;
   border-radius: var(--radius-md);
   background: linear-gradient(135deg, #e63946, #c1121f);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 0 16px rgba(230,57,70,0.3);
+  box-shadow: 0 0 18px rgba(230,57,70,0.35);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.entreprise-logo:hover {
+  box-shadow: 0 0 28px rgba(230,57,70,0.55);
+  transform: translateY(-2px);
 }
 .entreprise-initiales {
   font-family: var(--font-display);
@@ -745,96 +762,170 @@ ul { list-style: none; }
   color: #fff;
 }
 
-.entreprise-info { flex: 1; }
-
-.entreprise-poste {
+.entreprise-aside-title {
   font-family: var(--font-display);
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--text-primary);
-  letter-spacing: 0.02em;
-  margin-bottom: 4px;
+  line-height: 1.2;
 }
 
-.entreprise-nom {
-  font-size: 0.92rem;
-  color: var(--text-secondary);
-  margin-bottom: 10px;
-}
-.entreprise-link {
-  color: var(--green-primary);
-  font-weight: 600;
-  transition: color var(--transition);
-}
-.entreprise-link:hover { color: #fff; }
-.entreprise-contrat { color: var(--text-muted); margin-left: 4px; }
-
-.entreprise-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-.entreprise-meta-item {
+.entreprise-aside-sub {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  margin-top: 2px;
 }
 
-.entreprise-badge-wrap {
-  display: flex;
-  align-items: flex-start;
-  padding-top: 4px;
-}
 .entreprise-status {
   display: inline-flex;
   align-items: center;
   gap: 7px;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--green-primary);
   background: var(--green-ghost);
   border: 1px solid var(--border-hover);
   padding: 5px 12px;
   border-radius: 100px;
+  width: fit-content;
+  backdrop-filter: blur(4px);
 }
 
-.entreprise-body { padding: 2rem; }
+.entreprise-aside-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.entreprise-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.entreprise-meta-icon {
+  width: 18px; height: 18px;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+.entreprise-aside-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--green-primary);
+  border: 1px solid var(--border);
+  padding: 7px 14px;
+  border-radius: var(--radius-md);
+  transition: all 0.3s ease;
+  width: fit-content;
+  background: rgba(0,255,136,0.03);
+}
+.entreprise-aside-link:hover {
+  background: rgba(0,255,136,0.1);
+  border-color: var(--border-hover);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,255,136,0.15);
+}
+
+/* Colonne droite */
+.entreprise-main {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
 
 .entreprise-missions-title {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-bottom: 1.2rem;
+  letter-spacing: 0.14em;
+  margin-bottom: 1rem;
 }
 
 .entreprise-missions {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
+  gap: 0.6rem;
   list-style: none;
 }
+
+/* Chaque mission = carte micro */
 .entreprise-missions li {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  font-size: 0.88rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  background: rgba(255,255,255,0.015);
+  font-size: 0.87rem;
   color: var(--text-secondary);
   line-height: 1.6;
+  transition: all 0.3s ease;
+}
+.entreprise-missions li:hover {
+  border-color: var(--border);
+  background: rgba(0,255,136,0.04);
+  transform: translateY(-2px);
+  color: var(--text-primary);
 }
 .entreprise-missions strong { color: var(--text-primary); }
 
-.mission-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--green-dim);
+/* Icônes SVG missions */
+.mission-icon {
+  width: 16px; height: 16px;
   flex-shrink: 0;
-  margin-top: 7px;
+  margin-top: 3px;
+  opacity: 0.7;
 }
-.mission-highlight {
-  background: var(--green-primary);
-  box-shadow: 0 0 8px var(--green-primary);
+.mission-icon-cloud { color: var(--green-primary); opacity: 1; }
+
+/* Séparateur */
+.entreprise-divider {
+  height: 1px;
+  background: var(--border);
+}
+
+/* Stack modernisée */
+.entreprise-stack-section {}
+.entreprise-stack-title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.75rem;
+}
+.entreprise-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.entreprise-stack .stack-tag {
+  backdrop-filter: blur(4px);
+  transition: all 0.3s ease;
+}
+.entreprise-stack .stack-tag:hover {
+  background: rgba(0,255,136,0.15);
+  border-color: var(--green-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,255,136,0.15);
+}
+
+/* ── Responsive mobile ── */
+@media (max-width: 768px) {
+  .entreprise-split { grid-template-columns: 1fr; }
+  .entreprise-aside { border-right: none; border-bottom: 1px solid var(--border); padding: 1.75rem; }
+  .entreprise-main  { padding: 1.75rem; }
 }
 
 /* ============================================================
@@ -1239,69 +1330,93 @@ ul { list-style: none; }
       </div>
 
       <div class="entreprise-card">
-        <div class="entreprise-header">
-          <div class="entreprise-logo">
-            <span class="entreprise-initiales">S</span>
-          </div>
-          <div class="entreprise-info">
-            <h3 class="entreprise-poste">Technicien Support IT</h3>
-            <p class="entreprise-nom">
-              <a href="https://www.spie-ics.com" target="_blank" class="entreprise-link">SPIE ICS</a>
-              <span class="entreprise-contrat">· Contrat en alternance</span>
-            </p>
-            <div class="entreprise-meta">
-              <span class="entreprise-meta-item">📅 Août 2025 — Aujourd'hui</span>
-              <span class="entreprise-meta-item">📍 Lyon, Auvergne-Rhône-Alpes, France</span>
+        <div class="entreprise-split">
+
+          <!-- Colonne gauche : identité -->
+          <aside class="entreprise-aside">
+            <div class="entreprise-logo-wrap">
+              <div class="entreprise-logo">
+                <span class="entreprise-initiales">S</span>
+              </div>
             </div>
-          </div>
-          <div class="entreprise-badge-wrap">
+
+            <div>
+              <div class="entreprise-aside-title">Technicien Support IT</div>
+              <div class="entreprise-aside-sub">SPIE ICS · Alternance</div>
+            </div>
+
             <span class="entreprise-status">
               <span class="avail-dot pulse"></span>
               En poste
             </span>
-          </div>
-        </div>
 
-        <div class="entreprise-body">
-          <h4 class="entreprise-missions-title">Missions &amp; Responsabilités</h4>
-          <ul class="entreprise-missions">
-            <li>
-              <span class="mission-dot"></span>
-              Assurer le support informatique de proximité (niveau 1 et 2) auprès des utilisateurs.
-            </li>
-            <li>
-              <span class="mission-dot"></span>
-              Diagnostiquer et résoudre les incidents matériels, logiciels et bureautiques.
-            </li>
-            <li>
-              <span class="mission-dot"></span>
-              Installer, configurer et maintenir les postes de travail ainsi que les périphériques.
-            </li>
-            <li>
-              <span class="mission-dot"></span>
-              Gérer les demandes via l'outil de ticketing et assurer un suivi complet des interventions.
-            </li>
-            <li>
-              <span class="mission-dot"></span>
-              Participer aux déploiements, aux mises à jour et à l'évolution du parc informatique.
-            </li>
-            <li>
-              <span class="mission-dot"></span>
-              Veiller à la continuité du service et contribuer à la satisfaction des utilisateurs.
-            </li>
-            <li>
-              <span class="mission-dot mission-highlight"></span>
-              <strong>Déploiement cloud :</strong> Masterisation et enrôlement de postes de travail via <strong>Microsoft Intune</strong>.
-            </li>
-          </ul>
+            <div class="entreprise-aside-meta">
+              <div class="entreprise-meta-item">
+                <svg class="entreprise-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Août 2025 — Aujourd'hui
+              </div>
+              <div class="entreprise-meta-item">
+                <svg class="entreprise-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Lyon, Auvergne-Rhône-Alpes
+              </div>
+            </div>
 
-          <div class="entreprise-stack">
-            <span class="stack-tag">Windows 10 / 11</span>
-            <span class="stack-tag">Active Directory</span>
-            <span class="stack-tag">Microsoft Intune</span>
-            <span class="stack-tag">EasyVista</span>
-            <span class="stack-tag">Support N1 / N2</span>
+            <a href="https://www.spie-ics.com" target="_blank" rel="noopener" class="entreprise-aside-link">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              spie-ics.com
+            </a>
+          </aside>
+
+          <!-- Colonne droite : missions -->
+          <div class="entreprise-main">
+            <div>
+              <h4 class="entreprise-missions-title">Missions &amp; Responsabilités</h4>
+              <ul class="entreprise-missions">
+                <li>
+                  <svg class="mission-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                  Assurer le support informatique de proximité (niveau 1 et 2) auprès des utilisateurs.
+                </li>
+                <li>
+                  <svg class="mission-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  Diagnostiquer et résoudre les incidents matériels, logiciels et bureautiques.
+                </li>
+                <li>
+                  <svg class="mission-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                  Installer, configurer et maintenir les postes de travail ainsi que les périphériques.
+                </li>
+                <li>
+                  <svg class="mission-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                  Gérer les demandes via l'outil de ticketing et assurer un suivi complet des interventions.
+                </li>
+                <li>
+                  <svg class="mission-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+                  Participer aux déploiements, aux mises à jour et à l'évolution du parc informatique.
+                </li>
+                <li>
+                  <svg class="mission-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  Veiller à la continuité du service et contribuer à la satisfaction des utilisateurs.
+                </li>
+                <li>
+                  <svg class="mission-icon mission-icon-cloud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+                  <span><strong>Déploiement cloud :</strong> Masterisation et enrôlement de postes via <strong>Microsoft Intune</strong>.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="entreprise-divider"></div>
+
+            <div class="entreprise-stack-section">
+              <h4 class="entreprise-stack-title">Stack technique</h4>
+              <div class="entreprise-stack">
+                <span class="stack-tag">Windows 10 / 11</span>
+                <span class="stack-tag">Active Directory</span>
+                <span class="stack-tag">Microsoft Intune</span>
+                <span class="stack-tag">EasyVista</span>
+                <span class="stack-tag">Support N1 / N2</span>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
 
