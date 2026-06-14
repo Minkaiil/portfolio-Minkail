@@ -548,7 +548,7 @@ ul { list-style: none; }
 .comp-tag { font-family: var(--font-mono); font-size: 0.65rem; padding: 3px 10px; border-radius: var(--radius-sm); background: rgba(255,158,0,0.07); color: #ff9e00; border: 1px solid rgba(255,158,0,0.2); }
 
 /* ============================================================
-   SECTION VEILLE
+   SECTION VEILLE — Version ultra-visuelle / scannable
 ============================================================ */
 .veille-section { background: var(--bg-surface); }
 .veille-section::before {
@@ -559,11 +559,12 @@ ul { list-style: none; }
   background: linear-gradient(90deg, transparent, var(--green-dim), transparent);
 }
 .veille-layout { display: grid; grid-template-columns: 1fr 340px; gap: 2rem; align-items: start; }
+
 .veille-subject-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 2.5rem;
+  padding: 2.25rem;
   position: relative;
   overflow: hidden;
 }
@@ -574,20 +575,114 @@ ul { list-style: none; }
   width: 100%; height: 3px;
   background: linear-gradient(90deg, var(--green-primary), var(--green-dim), transparent);
 }
-.veille-subject-header { display: flex; align-items: flex-start; gap: 1.25rem; margin-bottom: 1.5rem; }
-.veille-icon { font-size: 2.4rem; margin-top: 4px; }
-.veille-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--green-primary); letter-spacing: 0.1em; display: block; margin-bottom: 6px; }
-.veille-subject-title { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--text-primary); line-height: 1.3; letter-spacing: 0.02em; }
-.veille-intro { margin-bottom: 2rem; padding: 1.25rem; background: rgba(255,255,255,0.02); border-left: 3px solid var(--green-primary); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
-.veille-intro p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8; }
-.veille-intro strong { color: var(--text-primary); }
-.veille-axes h4 { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
-.axes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.axe-item { display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: var(--radius-md); transition: border-color var(--transition); }
-.axe-item:hover { border-color: var(--border-hover); }
-.axe-num { font-family: var(--font-mono); font-size: 1.4rem; font-weight: 700; color: rgba(0,255,136,0.2); line-height: 1; min-width: 28px; }
-.axe-item strong { font-size: 0.85rem; color: var(--text-primary); display: block; margin-bottom: 4px; }
-.axe-item p { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.5; }
+.veille-subject-header { display: flex; align-items: flex-start; gap: 1.25rem; margin-bottom: 1.25rem; }
+.veille-icon { font-size: 2.2rem; margin-top: 4px; }
+.veille-label { font-family: var(--font-mono); font-size: 0.7rem; color: var(--green-primary); letter-spacing: 0.12em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+.veille-subject-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--text-primary); line-height: 1.3; letter-spacing: 0.02em; }
+
+/* Pitch court */
+.veille-pitch {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  padding: 1rem 1.25rem;
+  background: rgba(255,255,255,0.02);
+  border-left: 3px solid var(--green-primary);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin-bottom: 1.5rem;
+}
+.veille-pitch strong { color: var(--text-primary); }
+
+/* Grille des 4 axes */
+.axes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+
+.axe-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--axe-color, var(--green-primary));
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.2rem;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.axe-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.35), 0 0 18px var(--axe-glow, var(--green-glow));
+}
+
+.axe-card-header { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.85rem; }
+.axe-num {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #0a0e0f;
+  background: var(--axe-color, var(--green-primary));
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 12px var(--axe-glow, var(--green-glow));
+}
+.axe-card-header h4 {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+.axe-keywords { display: flex; flex-wrap: wrap; gap: 6px; }
+.kw-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  padding: 4px 9px;
+  border-radius: var(--radius-sm);
+  background: var(--axe-bg, var(--green-ghost));
+  color: var(--axe-color, var(--green-primary));
+  border: 1px solid var(--axe-border, rgba(0,255,136,0.2));
+}
+
+/* Variantes couleur par axe */
+.axe-blue   { --axe-color: #00ccff; --axe-bg: rgba(0,204,255,0.1);  --axe-border: rgba(0,204,255,0.3);  --axe-glow: rgba(0,204,255,0.25); }
+.axe-red    { --axe-color: #ff5555; --axe-bg: rgba(255,85,85,0.1);  --axe-border: rgba(255,85,85,0.3);  --axe-glow: rgba(255,85,85,0.25); }
+.axe-green  { --axe-color: #00ff88; --axe-bg: rgba(0,255,136,0.1);  --axe-border: rgba(0,255,136,0.3);  --axe-glow: rgba(0,255,136,0.25); }
+.axe-purple { --axe-color: #b070ff; --axe-bg: rgba(176,112,255,0.1);--axe-border: rgba(176,112,255,0.3);--axe-glow: rgba(176,112,255,0.25); }
+
+/* Bloc ouverture / veille en cours */
+.veille-next {
+  padding: 1.1rem 1.25rem;
+  background: rgba(0,255,136,0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.veille-next-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green-primary);
+  width: fit-content;
+}
+.veille-next-badge .badge-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green-primary);
+  box-shadow: 0 0 8px var(--green-primary);
+  animation: pulse-dot 1.5s ease infinite;
+}
+.veille-next p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+.veille-next strong { color: var(--text-primary); }
+
+/* Sidebar sources */
 .veille-sidebar { display: flex; flex-direction: column; gap: 1.25rem; }
 .veille-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; transition: border-color var(--transition); }
 .veille-card:hover { border-color: var(--border-hover); }
@@ -603,14 +698,6 @@ ul { list-style: none; }
 .rss-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-primary); box-shadow: 0 0 6px var(--green-primary); flex-shrink: 0; }
 .rss-list strong { font-size: 0.82rem; color: var(--text-primary); display: block; }
 .rss-url { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); }
-.other-sources { display: flex; flex-direction: column; gap: 6px; }
-.source-link { font-size: 0.82rem; color: var(--text-secondary); padding: 5px 10px; border-radius: var(--radius-sm); border: 1px solid transparent; transition: all var(--transition); display: block; }
-.source-link:hover { color: var(--green-primary); background: var(--green-ghost); border-color: var(--border); }
-.freq-grid { display: flex; flex-direction: column; gap: 8px; }
-.freq-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); }
-.freq-item:last-child { border-bottom: none; }
-.freq-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--green-primary); }
-.freq-value { font-size: 0.78rem; color: var(--text-secondary); }
 
 /* ============================================================
    SECTION CONTACT
@@ -1539,64 +1626,99 @@ ul { list-style: none; }
       <div class="section-header">
         <span class="section-tag">// 04</span>
         <h2 class="section-title">Veille Technologique</h2>
-        <p class="section-subtitle">Suivi actif des évolutions du domaine SISR</p>
+        <p class="section-subtitle">Anti-cheats, sécurité OS &amp; infrastructures gaming</p>
       </div>
       <div class="veille-layout">
 
         <div class="veille-main">
           <div class="veille-subject-card">
+
+            <!-- BLOC SUJET PRINCIPAL -->
             <div class="veille-subject-header">
               <span class="veille-icon">🛡️</span>
               <div>
-                <span class="veille-label">Sujet de veille 2024–2025</span>
-                <h3 class="veille-subject-title">L'évolution des architectures Zero Trust face aux menaces ransomwares</h3>
+                <span class="veille-label">Sujet de veille principal</span>
+                <h3 class="veille-subject-title">L'évolution des anti-cheats : Kernel-level vs IA &amp; sécurité des OS</h3>
               </div>
             </div>
-            <div class="veille-intro">
+
+            <p class="veille-pitch">
+              Face à l'émergence des triches par <strong>IA</strong> et <strong>cartes DMA</strong>, transition des
+              solutions anti-cheat du <strong>Ring 0 (noyau)</strong> vers l'<strong>analyse comportementale serveur</strong>
+              — impacts majeurs sur <strong>Windows vs Linux / Proton</strong>.
+            </p>
+
+            <!-- 4 AXES -->
+            <div class="axes-grid">
+              <div class="axe-card axe-blue">
+                <div class="axe-card-header">
+                  <span class="axe-num">01</span>
+                  <h4>Contexte technique</h4>
+                </div>
+                <div class="axe-keywords">
+                  <span class="kw-tag">Ring 0</span>
+                  <span class="kw-tag">Riot Vanguard</span>
+                  <span class="kw-tag">EAC</span>
+                  <span class="kw-tag">IOMMU</span>
+                  <span class="kw-tag">Cartes DMA</span>
+                </div>
+              </div>
+
+              <div class="axe-card axe-red">
+                <div class="axe-card-header">
+                  <span class="axe-num">02</span>
+                  <h4>Problématique &amp; Risques</h4>
+                </div>
+                <div class="axe-keywords">
+                  <span class="kw-tag">Surface d'attaque drivers</span>
+                  <span class="kw-tag">Effet CrowdStrike</span>
+                  <span class="kw-tag">Restrictions noyau Linux</span>
+                </div>
+              </div>
+
+              <div class="axe-card axe-green">
+                <div class="axe-card-header">
+                  <span class="axe-num">03</span>
+                  <h4>Évolutions &amp; IA</h4>
+                </div>
+                <div class="axe-keywords">
+                  <span class="kw-tag">Deep Learning</span>
+                  <span class="kw-tag">Analyse comportementale</span>
+                  <span class="kw-tag">Module noyau &lt;50ko</span>
+                  <span class="kw-tag">Linux Apex / EA</span>
+                </div>
+              </div>
+
+              <div class="axe-card axe-purple">
+                <div class="axe-card-header">
+                  <span class="axe-num">04</span>
+                  <h4>Outils de suivi</h4>
+                </div>
+                <div class="axe-keywords">
+                  <span class="kw-tag">GamingOnLinux</span>
+                  <span class="kw-tag">Riot Tech Blog</span>
+                  <span class="kw-tag">ProtonDB</span>
+                  <span class="kw-tag">Publications ARES</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- BLOC OUVERTURE -->
+            <div class="veille-next">
+              <span class="veille-next-badge">
+                <span class="badge-dot"></span>
+                Veille en cours
+              </span>
               <p>
-                Face à la recrudescence des attaques par ransomware ciblant les PME et collectivités,
-                le modèle <strong>Zero Trust</strong> s'impose comme paradigme de sécurité incontournable.
-                Cette veille analyse les évolutions des architectures réseau qui abandonnent le principe
-                de confiance implicite au profit d'une vérification systématique de chaque accès,
-                qu'il provienne de l'intérieur ou de l'extérieur du périmètre réseau.
+                <strong>Prochain sujet :</strong> Sécurisation Cloud &amp; API des plateformes gaming face aux
+                ransomwares et DDoS nouvelle génération — <strong>Architectures Zero Trust &amp; WAAP</strong>.
               </p>
             </div>
-            <div class="veille-axes">
-              <h4>Axes de veille</h4>
-              <div class="axes-grid">
-                <div class="axe-item">
-                  <span class="axe-num">01</span>
-                  <div>
-                    <strong>Principe Zero Trust</strong>
-                    <p>Never trust, always verify — micro-segmentation, MFA, contrôle d'accès granulaire</p>
-                  </div>
-                </div>
-                <div class="axe-item">
-                  <span class="axe-num">02</span>
-                  <div>
-                    <strong>Vecteurs ransomware actuels</strong>
-                    <p>Phishing ciblé, RDP exposé, exploitation de vulnérabilités VPN non patchées</p>
-                  </div>
-                </div>
-                <div class="axe-item">
-                  <span class="axe-num">03</span>
-                  <div>
-                    <strong>Solutions &amp; frameworks</strong>
-                    <p>ZTNA (Zero Trust Network Access), SASE, frameworks NIST SP 800-207</p>
-                  </div>
-                </div>
-                <div class="axe-item">
-                  <span class="axe-num">04</span>
-                  <div>
-                    <strong>Cas concrets</strong>
-                    <p>Analyse d'incidents (Colonial Pipeline, Kaseya VSA) et mesures correctives</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
 
+        <!-- SIDEBAR : SOURCES & FLUX RSS -->
         <div class="veille-sidebar">
           <div class="veille-card">
             <h4 class="veille-card-title"><span class="vc-icon">📰</span> Agrégateur principal</h4>
@@ -1604,47 +1726,18 @@ ul { list-style: none; }
               <div class="tool-logo">F</div>
               <div>
                 <strong>Feedly</strong>
-                <p>Agrégation de flux RSS organisés par thématiques (Cybersécurité, Réseaux, Linux)</p>
+                <p>Cybersécurité · Linux · OS Kernel</p>
               </div>
             </div>
           </div>
           <div class="veille-card">
             <h4 class="veille-card-title"><span class="vc-icon">📡</span> Flux RSS suivis</h4>
             <ul class="rss-list">
-              <li><span class="rss-dot"></span><div><strong>CERT-FR</strong><span class="rss-url">cert.ssi.gouv.fr/feed</span></div></li>
-              <li><span class="rss-dot"></span><div><strong>The Hacker News</strong><span class="rss-url">feeds.feedburner.com/TheHackersNews</span></div></li>
-              <li><span class="rss-dot"></span><div><strong>Korben.info</strong><span class="rss-url">korben.info/feed</span></div></li>
-              <li><span class="rss-dot"></span><div><strong>Nextinpact</strong><span class="rss-url">nextinpact.com/rss</span></div></li>
-              <li><span class="rss-dot"></span><div><strong>Blog Zabbix officiel</strong><span class="rss-url">blog.zabbix.com/feed</span></div></li>
-              <li><span class="rss-dot"></span><div><strong>Cisco Security Blog</strong><span class="rss-url">blogs.cisco.com/security/feed</span></div></li>
+              <li><span class="rss-dot"></span><div><strong>Riot Games Technology</strong><span class="rss-url">technology.riotgames.com/rss</span></div></li>
+              <li><span class="rss-dot"></span><div><strong>GamingOnLinux</strong><span class="rss-url">gamingonlinux.com/article/rss</span></div></li>
+              <li><span class="rss-dot"></span><div><strong>LeMagIT — Sécurité</strong><span class="rss-url">lemagit.fr/rss</span></div></li>
+              <li><span class="rss-dot"></span><div><strong>BleepingComputer</strong><span class="rss-url">Kernel &amp; Vulnerabilities</span></div></li>
             </ul>
-          </div>
-          <div class="veille-card">
-            <h4 class="veille-card-title"><span class="vc-icon">🔗</span> Autres sources</h4>
-            <div class="other-sources">
-              <a href="#" class="source-link">ANSSI — ssi.gouv.fr</a>
-              <a href="#" class="source-link">CVE MITRE</a>
-              <a href="#" class="source-link">r/networking Reddit</a>
-              <a href="#" class="source-link">LinkedIn Learning</a>
-              <a href="#" class="source-link">YouTube — NetworkChuck</a>
-            </div>
-          </div>
-          <div class="veille-card veille-frequency">
-            <h4 class="veille-card-title"><span class="vc-icon">🕐</span> Fréquence de veille</h4>
-            <div class="freq-grid">
-              <div class="freq-item">
-                <span class="freq-label">Quotidien</span>
-                <span class="freq-value">Feedly · CERT-FR</span>
-              </div>
-              <div class="freq-item">
-                <span class="freq-label">Hebdo</span>
-                <span class="freq-value">Synthèse · Notes</span>
-              </div>
-              <div class="freq-item">
-                <span class="freq-label">Mensuel</span>
-                <span class="freq-value">Rapport de veille</span>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -1730,7 +1823,7 @@ ul { list-style: none; }
             </span>
             <div>
               <span class="contact-label">Téléphone</span>
-              <span class="contact-value">07 67 66 50 51</span>
+              <span class="contact-value">06 XX XX XX XX</span>
             </div>
           </div>
           <div class="contact-item">
