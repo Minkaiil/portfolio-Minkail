@@ -630,7 +630,28 @@ ul { list-style: none; }
   letter-spacing: 0.02em;
 }
 
-.axe-keywords { display: flex; flex-wrap: wrap; gap: 6px; }
+/* Liste à puces dans les cards d'axes */
+.axe-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.axe-list li {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  padding-left: 0.9rem;
+  position: relative;
+}
+.axe-list li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--axe-color, var(--green-primary));
+  font-weight: 700;
+}
+.axe-list strong { color: var(--text-primary); }
 .kw-tag {
   font-family: var(--font-mono);
   font-size: 0.68rem;
@@ -1550,7 +1571,7 @@ ul { list-style: none; }
             <div class="projet-details-grid">
               <div class="detail-item">
                 <span class="detail-label">Contexte</span>
-                <span class="detail-value">Alternance — SPIE ICS</span>
+                <span class="detail-value">En formation</span>
               </div>
               <div class="detail-item">
                 <span class="detail-label">Durée</span>
@@ -1637,66 +1658,64 @@ ul { list-style: none; }
               <span class="veille-icon">🤖</span>
               <div>
                 <span class="veille-label">Sujet de veille principal — 2026</span>
-                <h3 class="veille-subject-title">Sécurisation de l'IA Agentique face aux failles Zero-Click</h3>
+                <h3 class="veille-subject-title">L'évolution de l'IA Agentique : Sécurisation des SI face aux failles "Zero-Click"</h3>
               </div>
             </div>
 
             <p class="veille-pitch">
-              Avec le passage en 2026 aux <strong>agents IA autonomes</strong> connectés aux SI
-              (API, bases de données), cette veille analyse les risques liés aux
-              <strong>injections indirectes de prompts</strong> ("Zero-Click") et les stratégies
-              d'infrastructure pour <strong>isoler et restreindre les privilèges</strong> de ces agents.
+              En 2026, les entreprises déploient des <strong>agents IA autonomes</strong> connectés
+              aux infrastructures (API, bases de données). Cette veille analyse le risque de la
+              <strong>Prompt Injection Indirecte</strong> et les stratégies d'architecture système
+              pour <strong>isoler ces agents</strong>.
             </p>
 
             <div class="axes-grid">
+
               <div class="axe-card axe-blue">
                 <div class="axe-card-header">
                   <h4>Contexte technique</h4>
                 </div>
-                <div class="axe-keywords">
-                  <span class="kw-tag">IA Agentique</span>
-                  <span class="kw-tag">Agents autonomes</span>
-                  <span class="kw-tag">Appels d'API</span>
-                  <span class="kw-tag">LLM</span>
-                </div>
+                <ul class="axe-list">
+                  <li><strong>De l'IA passive à l'IA Agentique :</strong> Passage des simples chatbots à des agents autonomes dotés de capacités d'action.</li>
+                  <li><strong>Interconnexion des SI :</strong> Ces agents exécutent des scripts, interrogent des <strong>bases de données SQL</strong> et consomment des <strong>API d'entreprise</strong>.</li>
+                  <li><strong>Modèles de raisonnement :</strong> Utilisation des derniers <strong>LLM</strong> pour orchestrer des flux de travail automatisés.</li>
+                </ul>
               </div>
 
               <div class="axe-card axe-red">
                 <div class="axe-card-header">
                   <h4>Problématique &amp; Risques</h4>
                 </div>
-                <div class="axe-keywords">
-                  <span class="kw-tag">Prompt Injection Indirecte</span>
-                  <span class="kw-tag">Attaques Zero-Click</span>
-                  <span class="kw-tag">Exfiltration clés API</span>
-                  <span class="kw-tag">Permissions excessives</span>
-                </div>
+                <ul class="axe-list">
+                  <li><strong>Prompt Injection Indirecte :</strong> Instructions malveillantes dissimulées dans une source externe (PDF, mail, repo GitHub) que l'IA va lire.</li>
+                  <li><strong>Attaques "Zero-Click" :</strong> L'utilisateur légitime ne clique rien — c'est <strong>l'agent IA</strong> qui exécute l'ordre pirate à son insu.</li>
+                  <li><strong>Risques majeurs :</strong> Exfiltration de <strong>clés API</strong> et secrets de configuration via détournement des privilèges.</li>
+                </ul>
               </div>
 
               <div class="axe-card axe-green">
                 <div class="axe-card-header">
                   <h4>Évolutions &amp; Défense</h4>
                 </div>
-                <div class="axe-keywords">
-                  <span class="kw-tag">Guardrails temps réel</span>
-                  <span class="kw-tag">Moindre privilège</span>
-                  <span class="kw-tag">Sandboxing</span>
-                  <span class="kw-tag">Isolation environnements</span>
-                </div>
+                <ul class="axe-list">
+                  <li><strong>Moindre privilège :</strong> Restriction stricte des droits d'accès — un agent n'interagit qu'avec sa <strong>sandbox dédiée</strong>.</li>
+                  <li><strong>Sandboxing &amp; Isolation :</strong> Confinement des environnements d'exécution pour éviter la propagation au réseau local.</li>
+                  <li><strong>AI Guardrails :</strong> Pare-feux applicatifs en temps réel pour intercepter les injections entrantes/sortantes.</li>
+                </ul>
               </div>
 
               <div class="axe-card axe-purple">
                 <div class="axe-card-header">
                   <h4>Outils de suivi</h4>
                 </div>
-                <div class="axe-keywords">
-                  <span class="kw-tag">HiddenLayer Report 2026</span>
-                  <span class="kw-tag">OWASP Top 10 LLM</span>
-                  <span class="kw-tag">CVE-2025-53773</span>
-                </div>
+                <ul class="axe-list">
+                  <li><strong>HiddenLayer Threat Report 2026 :</strong> 1 brèche sur 8 liée aux agents IA en 2026.</li>
+                  <li><strong>OWASP Top 10 for LLM :</strong> Référentiel mondial des vulnérabilités liées aux modèles de langage.</li>
+                  <li><strong>CVE-2025-53773 :</strong> Exécution de code à distance via injection indirecte — cas d'étude clé.</li>
+                </ul>
               </div>
-            </div>
 
+            </div>
           </div>
         </div>
 
@@ -1714,8 +1733,8 @@ ul { list-style: none; }
           <div class="veille-card">
             <h4 class="veille-card-title"><span class="vc-icon">📡</span> Flux RSS suivis</h4>
             <ul class="rss-list">
-              <li><span class="rss-dot"></span><div><strong>OWASP Top 10 LLM</strong><span class="rss-url">owasp.org/updates</span></div></li>
-              <li><span class="rss-dot"></span><div><strong>HiddenLayer Blog</strong><span class="rss-url">hiddenlayer.com/research</span></div></li>
+              <li><span class="rss-dot"></span><div><strong>OWASP GenAI Security</strong><span class="rss-url">owasp.org/genai</span></div></li>
+              <li><span class="rss-dot"></span><div><strong>HiddenLayer Research</strong><span class="rss-url">hiddenlayer.com/research</span></div></li>
               <li><span class="rss-dot"></span><div><strong>LeMagIT — Cybersécurité</strong><span class="rss-url">lemagit.fr/rss</span></div></li>
               <li><span class="rss-dot"></span><div><strong>BleepingComputer</strong><span class="rss-url">AI Threats</span></div></li>
             </ul>
